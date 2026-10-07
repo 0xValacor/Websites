@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>02:56</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;900&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-top: #07010f;
+    --bg-bottom: #1a0533;
+    --pink: #ff2bd6;
+    --cyan: #19f0ff;
+    --sun-a: #ffd319;
+    --sun-b: #ff2975;
+    --sun-c: #8c1eff;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body { height: 100%; }
+
+  body {
+    background: linear-gradient(to bottom, var(--bg-top) 0%, var(--bg-bottom) 60%, #000 100%);
+    color: #fff;
+    font-family: 'Orbitron', system-ui, sans-serif;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+    position: relative;
+  }
+
+  /* Starfield */
+  .stars, .stars::after {
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(1px 1px at 10% 20%, #fff 50%, transparent 51%),
+      radial-gradient(1px 1px at 30% 8%, #fff 50%, transparent 51%),
+      radial-gradient(1.5px 1.5px at 55% 15%, #fff 50%, transparent 51%),
+      radial-gradient(1px 1px at 72% 30%, #fff 50%, transparent 51%),
+      radial-gradient(1px 1px at 88% 12%, #fff 50%, transparent 51%),
+      radial-gradient(1.5px 1.5px at 18% 38%, #fff 50%, transparent 51%),
+      radial-gradient(1px 1px at 45% 32%, #fff 50%, transparent 51%),
+      radial-gradient(1px 1px at 93% 40%, #fff 50%, transparent 51%),
+      radial-gradient(1px 1px at 5% 5%, #fff 50%, transparent 51%),
+      radial-gradient(1px 1px at 63% 4%, #fff 50%, transparent 51%);
+    animation: twinkle 4s ease-in-out infinite alternate;
+    pointer-events: none;
+  }
+  .stars::after {
+    content: "";
+    transform: translate(3%, 6%);
+    animation-delay: 2s;
+  }
+  @keyframes twinkle { from { opacity: .35; } to { opacity: 1; } }
+
+  /* Retro sun */
+  .sun {
+    position: absolute;
+    left: 50%;
+    bottom: 38%;
+    width: min(60vmin, 520px);
+    aspect-ratio: 1;
+    transform: translate(-50%, 50%);
+    border-radius: 50%;
+    background: linear-gradient(to bottom, var(--sun-a) 0%, var(--sun-b) 55%, var(--sun-c) 100%);
+    box-shadow: 0 0 80px 10px rgba(255, 41, 117, .45);
+    mask-image: linear-gradient(to bottom,
+      #000 0 50%,
+      transparent 50% 53%, #000 53% 60%,
+      transparent 60% 64%, #000 64% 70%,
+      transparent 70% 75%, #000 75% 80%,
+      transparent 80% 86%, #000 86% 90%,
+      transparent 90% 100%);
+    -webkit-mask-image: linear-gradient(to bottom,
+      #000 0 50%,
+      transparent 50% 53%, #000 53% 60%,
+      transparent 60% 64%, #000 64% 70%,
+      transparent 70% 75%, #000 75% 80%,
+      transparent 80% 86%, #000 86% 90%,
+      transparent 90% 100%);
+    opacity: .9;
+  }
+
+  /* Perspective grid floor */
+  .floor {
+    position: absolute;
+    left: -50%;
+    right: -50%;
+    bottom: 0;
+    height: 38%;
+    perspective: 300px;
+    overflow: hidden;
+    background: linear-gradient(to bottom, rgba(140, 30, 255, .25), transparent 40%);
+    border-top: 2px solid var(--pink);
+    box-shadow: 0 -6px 30px var(--pink);
+  }
+  .floor::before {
+    content: "";
+    position: absolute;
+    inset: -100% 0 0 0;
+    transform: rotateX(70deg);
+    transform-origin: bottom;
+    background-image:
+      linear-gradient(to right, rgba(255, 43, 214, .8) 2px, transparent 2px),
+      linear-gradient(to bottom, rgba(255, 43, 214, .8) 2px, transparent 2px);
+    background-size: 60px 60px;
+    animation: drive 1.2s linear infinite;
+  }
+  @keyframes drive { to { background-position: 0 60px; } }
+
+  /* The clock */
+  .clock {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    margin-bottom: 18vh;
+  }
+
+  .time {
+    font-weight: 900;
+    font-size: clamp(5rem, 22vw, 16rem);
+    letter-spacing: .04em;
+    line-height: 1;
+    background: linear-gradient(to bottom, #fff 0%, #c9f9ff 35%, var(--cyan) 50%, var(--pink) 51%, #ff9ff3 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter:
+      drop-shadow(0 0 2px rgba(255,255,255,.8))
+      drop-shadow(0 0 18px rgba(25, 240, 255, .6))
+      drop-shadow(0 0 40px rgba(255, 43, 214, .5));
+    position: relative;
+    animation: flicker 6s infinite;
+  }
+
+  .time .colon {
+    display: inline-block;
+    animation: blink 1s steps(1) infinite;
+  }
+  @keyframes blink { 50% { opacity: .15; } }
+
+  /* Chromatic glitch layers */
+  .time::before, .time::after {
+    content: attr(data-time);
+    position: absolute;
+    inset: 0;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    pointer-events: none;
+    mix-blend-mode: screen;
+  }
+  .time::before {
+    background-image: linear-gradient(var(--cyan), var(--cyan));
+    animation: glitch-a 3.5s infinite steps(1);
+  }
+  .time::after {
+    background-image: linear-gradient(var(--pink), var(--pink));
+    animation: glitch-b 3.5s infinite steps(1);
+  }
+  @keyframes glitch-a {
+    0%, 88%, 100% { opacity: 0; transform: none; clip-path: inset(0); }
+    89% { opacity: .8; transform: translate(-6px, 2px); clip-path: inset(10% 0 60% 0); }
+    91% { opacity: .8; transform: translate(5px, -3px); clip-path: inset(55% 0 20% 0); }
+    93% { opacity: .8; transform: translate(-3px, 0); clip-path: inset(30% 0 40% 0); }
+  }
+  @keyframes glitch-b {
+    0%, 88%, 100% { opacity: 0; transform: none; clip-path: inset(0); }
+    89% { opacity: .8; transform: translate(6px, -2px); clip-path: inset(60% 0 10% 0); }
+    91% { opacity: .8; transform: translate(-5px, 3px); clip-path: inset(15% 0 65% 0); }
+    93% { opacity: .8; transform: translate(4px, 1px); clip-path: inset(45% 0 30% 0); }
+  }
+  @keyframes flicker {
+    0%, 19%, 21%, 62%, 64%, 100% { opacity: 1; }
+    20%, 63% { opacity: .75; }
+  }
+
+  .label {
+    margin-top: 1.2rem;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: clamp(.7rem, 2.2vw, 1rem);
+    letter-spacing: .6em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    text-shadow: 0 0 8px var(--cyan);
+    opacity: .85;
+  }
+  .label span { color: var(--pink); text-shadow: 0 0 8px var(--pink); }
+
+  /* CRT scanlines + vignette */
+  .crt {
+    position: fixed;
+    inset: 0;
+    z-index: 5;
+    pointer-events: none;
+    background:
+      repeating-linear-gradient(to bottom, rgba(0,0,0,.18) 0 1px, transparent 1px 3px),
+      radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,.75) 100%);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; }
+  }
+</style>
+</head>
+<body>
+  <div class="stars" aria-hidden="true"></div>
+  <div class="sun" aria-hidden="true"></div>
+  <div class="floor" aria-hidden="true"></div>
+
+  <main class="clock">
+    <h1 class="time" data-time="02:56" aria-label="02:56">02<span class="colon">:</span>56</h1>
+    <p class="label">am &middot; <span>the night drive hour</span></p>
+  </main>
+
+  <div class="crt" aria-hidden="true"></div>
+</body>
+</html>

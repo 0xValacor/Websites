@@ -1,0 +1,779 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Specimen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..600&family=Inter+Tight:wght@400;500;600&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f3eee2;
+    --paper-2: #ebe4d3;
+    --ink: #1c2620;
+    --ink-soft: #46524a;
+    --muted: #7a7d70;
+    --moss: #2f5a3d;
+    --moss-deep: #17301f;
+    --coral: #d0603a;
+    --rule: rgba(28, 38, 32, 0.16);
+    --serif: 'Fraunces', Georgia, serif;
+    --sans: 'Inter Tight', system-ui, sans-serif;
+    --mono: 'IBM Plex Mono', ui-monospace, monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  /* paper grain */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 100;
+    opacity: .06;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  a { color: inherit; text-decoration: none; }
+  em { font-style: italic; }
+
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
+
+  .label {
+    font-family: var(--mono);
+    font-size: .72rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ---------- Masthead ---------- */
+  .top {
+    border-bottom: 1px solid var(--rule);
+  }
+  .top .wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    height: 76px;
+  }
+  .brand {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+  }
+  .brand b {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 1.7rem;
+    letter-spacing: -.02em;
+    font-variation-settings: "opsz" 144;
+  }
+  .brand b i { color: var(--coral); font-style: normal; }
+  .brand span { font-family: var(--serif); font-style: italic; color: var(--muted); font-size: .95rem; }
+  nav ul { display: flex; gap: 30px; list-style: none; font-size: .92rem; font-weight: 500; }
+  nav a { color: var(--ink-soft); }
+  nav a:hover { color: var(--moss); }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 22px;
+    border-radius: 999px;
+    font-weight: 500;
+    font-size: .92rem;
+    background: var(--moss-deep);
+    color: var(--paper);
+    border: 1px solid var(--moss-deep);
+    transition: background .2s, color .2s;
+  }
+  .btn:hover { background: var(--moss); border-color: var(--moss); }
+  .btn.ghost { background: transparent; color: var(--ink); border-color: var(--rule); }
+  .btn.ghost:hover { border-color: var(--ink); }
+  .btn.small { padding: 9px 18px; font-size: .85rem; }
+
+  /* ---------- Hero ---------- */
+  .hero .wrap {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 64px;
+    align-items: center;
+    padding-top: 80px;
+    padding-bottom: 96px;
+  }
+  .hero h1 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(2.8rem, 6vw, 5.4rem);
+    line-height: .98;
+    letter-spacing: -.035em;
+    font-variation-settings: "opsz" 144;
+    margin: 22px 0 28px;
+  }
+  .hero h1 em { color: var(--moss); font-weight: 300; }
+  .hero p.lede {
+    font-size: 1.15rem;
+    color: var(--ink-soft);
+    max-width: 30rem;
+    margin-bottom: 36px;
+  }
+  .actions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+  .plate {
+    position: relative;
+    aspect-ratio: 1;
+    background: var(--paper-2);
+    border: 1px solid var(--rule);
+    padding: 7%;
+    color: var(--moss-deep);
+  }
+  .plate::before {
+    content: "";
+    position: absolute;
+    inset: 12px;
+    border: 1px solid var(--rule);
+    pointer-events: none;
+  }
+  .plate .spin { width: 100%; height: 100%; animation: spin 240s linear infinite; }
+  .plate svg { width: 100%; height: 100%; display: block; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .plate .fig {
+    position: absolute;
+    left: 28px; right: 28px; bottom: 22px;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    font-family: var(--serif);
+    font-size: .85rem;
+    color: var(--ink-soft);
+  }
+  .plate .fig i { font-style: italic; }
+  .plate .no {
+    position: absolute;
+    top: 24px; left: 28px;
+  }
+  .plate .scale {
+    position: absolute;
+    top: 24px; right: 28px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .plate .scale::before {
+    content: "";
+    width: 48px; height: 6px;
+    border: 1px solid var(--ink-soft);
+    border-top: 0;
+  }
+
+  /* ---------- Kingdom strip ---------- */
+  .kingdoms {
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .kingdoms ul {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    list-style: none;
+  }
+  .kingdoms li + li { border-left: 1px solid var(--rule); }
+  .kingdoms li:first-child a { padding-left: 0; }
+  .kingdoms a {
+    display: block;
+    padding: 26px 22px;
+    transition: background .2s;
+  }
+  .kingdoms a:hover { background: var(--paper-2); }
+  .kingdoms b {
+    display: block;
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 1.35rem;
+    font-style: italic;
+    margin-top: 6px;
+  }
+
+  /* ---------- Sections ---------- */
+  section.block { padding: 110px 0; }
+  .head {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+  .head h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(2rem, 3.6vw, 3rem);
+    letter-spacing: -.025em;
+    line-height: 1.05;
+  }
+  .head h2 em { color: var(--moss); }
+  .head a { font-weight: 500; font-size: .92rem; border-bottom: 1px solid currentColor; padding-bottom: 2px; }
+
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: .7rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--tint, var(--moss));
+  }
+  .tag::before {
+    content: "";
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  /* featured */
+  .featured {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    border: 1px solid var(--rule);
+    background: var(--paper-2);
+  }
+  .featured .art {
+    background: var(--moss-deep);
+    color: #cfe3c8;
+    padding: 9%;
+    min-height: 460px;
+    display: grid;
+    place-items: center;
+  }
+  .featured .art svg { width: 100%; max-width: 440px; }
+  .featured .body {
+    padding: 56px 52px;
+    display: flex;
+    flex-direction: column;
+  }
+  .featured h3 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(1.9rem, 3vw, 2.6rem);
+    line-height: 1.08;
+    letter-spacing: -.02em;
+    margin: 18px 0 20px;
+  }
+  .featured h3 a:hover { color: var(--moss); }
+  .featured p { color: var(--ink-soft); }
+  .byline {
+    margin-top: auto;
+    padding-top: 32px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: .88rem;
+    color: var(--ink-soft);
+  }
+  .avatar {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: var(--moss);
+    color: var(--paper);
+    display: grid;
+    place-items: center;
+    font-family: var(--serif);
+    font-style: italic;
+  }
+  .byline b { display: block; color: var(--ink); font-weight: 500; }
+
+  /* post grid */
+  .posts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 56px 36px;
+  }
+  .post a { display: block; }
+  .post .thumb {
+    aspect-ratio: 4 / 3;
+    background: var(--paper-2);
+    border: 1px solid var(--rule);
+    color: var(--tint);
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    margin-bottom: 22px;
+  }
+  .post .thumb svg {
+    width: 70%;
+    transition: transform .8s cubic-bezier(.2,.8,.2,1);
+  }
+  .post a:hover .thumb svg { transform: scale(1.08) rotate(8deg); }
+  .post h3 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 1.45rem;
+    line-height: 1.18;
+    letter-spacing: -.015em;
+    margin: 12px 0 10px;
+  }
+  .post a:hover h3 { color: var(--tint); }
+  .post p { color: var(--ink-soft); font-size: .96rem; }
+  .post .meta { margin-top: 16px; }
+
+  /* specimen of the week */
+  .sotw {
+    background: var(--moss-deep);
+    color: #e7eedf;
+  }
+  .sotw .wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    padding-top: 110px;
+    padding-bottom: 110px;
+  }
+  .sotw .label { color: #9fb79a; }
+  .sotw h2 {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(2.6rem, 5vw, 4.4rem);
+    letter-spacing: -.03em;
+    line-height: 1;
+    margin: 18px 0 8px;
+  }
+  .sotw .common { font-family: var(--serif); font-size: 1.15rem; color: #9fb79a; margin-bottom: 30px; }
+  .sotw p { color: #c3d0bd; max-width: 32rem; }
+  .sotw dl {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    margin-top: 36px;
+    border-top: 1px solid rgba(231, 238, 223, .18);
+  }
+  .sotw dt, .sotw dd {
+    padding: 11px 0;
+    border-bottom: 1px solid rgba(231, 238, 223, .18);
+  }
+  .sotw dt { font-family: var(--mono); font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: #9fb79a; padding-right: 40px; align-self: center; }
+  .sotw dd { font-family: var(--serif); }
+  .sotw .art { color: #e7eedf; position: relative; }
+  .sotw .art svg { width: 100%; display: block; }
+  .sotw .art .ring {
+    position: absolute;
+    inset: -4%;
+    border: 1px dashed rgba(231, 238, 223, .22);
+    border-radius: 50%;
+  }
+
+  /* newsletter */
+  .letter {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .letter h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(2.2rem, 4.4vw, 3.6rem);
+    letter-spacing: -.03em;
+    line-height: 1.02;
+    margin: 18px 0 20px;
+  }
+  .letter h2 em { color: var(--moss); }
+  .letter p { color: var(--ink-soft); margin-bottom: 36px; }
+  .letter form {
+    display: flex;
+    gap: 10px;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 6px;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    background: #fbf8f1;
+  }
+  .letter input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    background: transparent;
+    padding: 0 18px;
+    font: inherit;
+    color: var(--ink);
+    outline: none;
+  }
+  .letter .fine { margin-top: 16px; font-size: .82rem; color: var(--muted); }
+
+  footer {
+    border-top: 1px solid var(--rule);
+    padding: 40px 0 56px;
+    font-size: .88rem;
+    color: var(--muted);
+  }
+  footer .wrap { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+  footer ul { display: flex; gap: 26px; list-style: none; }
+  footer a:hover { color: var(--ink); }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 980px) {
+    nav ul { display: none; }
+    .hero .wrap, .sotw .wrap { grid-template-columns: 1fr; gap: 56px; }
+    .hero .wrap { padding-top: 56px; }
+    .plate { max-width: 560px; }
+    .kingdoms ul { grid-template-columns: repeat(3, 1fr); }
+    .kingdoms li:nth-child(4) { border-left: 0; }
+    .kingdoms li:nth-child(4) a { padding-left: 0; }
+    .kingdoms li:nth-child(n+4) { border-top: 1px solid var(--rule); }
+    .featured { grid-template-columns: 1fr; }
+    .featured .art { min-height: 320px; }
+    .posts { grid-template-columns: repeat(2, 1fr); }
+    .sotw .art { max-width: 460px; }
+  }
+  @media (max-width: 640px) {
+    body { font-size: 16px; }
+    .wrap { padding: 0 16px; }
+    .brand span { display: none; }
+    section.block { padding: 72px 0; }
+    .head { flex-direction: column; align-items: start; }
+    .kingdoms ul { grid-template-columns: repeat(2, 1fr); }
+    .kingdoms li { border-left: 0 !important; }
+    .kingdoms li:nth-child(even) { border-left: 1px solid var(--rule) !important; }
+    .kingdoms li:nth-child(n+3) { border-top: 1px solid var(--rule); }
+    .kingdoms a, .kingdoms li:first-child a { padding: 20px 16px; }
+    .kingdoms li:nth-child(odd) a { padding-left: 0; }
+    .kingdoms li:nth-child(4) a { padding-left: 16px; }
+    .featured .body { padding: 32px 22px; }
+    .posts { grid-template-columns: 1fr; }
+    .sotw .wrap { padding-top: 72px; padding-bottom: 72px; }
+    .letter form { flex-direction: column; border-radius: 20px; }
+    .letter input { padding: 12px 14px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#"><b>Specimen<i>.</i></b><span>a journal of living things</span></a>
+    <nav>
+      <ul>
+        <li><a href="#latest">Essays</a></li>
+        <li><a href="#latest">Field Notes</a></li>
+        <li><a href="#sotw">Microscopy</a></li>
+        <li><a href="#kingdoms">Archive</a></li>
+        <li><a href="#letter">About</a></li>
+      </ul>
+    </nav>
+    <a class="btn small" href="#letter">Subscribe</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <div class="label">Vol. IV · No. 10 · October 2026</div>
+      <h1>Field notes on the <em>astonishing</em> machinery of life.</h1>
+      <p class="lede">Long reads and short dispatches about cells, creatures and the strange chemistry that keeps them going. Written slowly, illustrated by hand, and sent once a month.</p>
+      <div class="actions">
+        <a class="btn" href="#featured">Read the latest essay →</a>
+        <a class="btn ghost" href="#kingdoms">Browse the archive</a>
+      </div>
+    </div>
+    <figure class="plate">
+      <span class="label no">Plate XII</span>
+      <span class="label scale">50 µm</span>
+      <div class="spin" data-specimen="radiolarian:1834"></div>
+      <figcaption class="fig"><span>Fig. 1. <i>Hexacontium</i> sp.</span><span>after E. Haeckel, 1904</span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<nav class="kingdoms" id="kingdoms" aria-label="Browse by kingdom">
+  <ul class="wrap">
+    <li><a href="#latest"><span class="label">48 essays</span><b>Animalia</b></a></li>
+    <li><a href="#latest"><span class="label">31 essays</span><b>Plantae</b></a></li>
+    <li><a href="#latest"><span class="label">17 essays</span><b>Fungi</b></a></li>
+    <li><a href="#latest"><span class="label">22 essays</span><b>Protista</b></a></li>
+    <li><a href="#latest"><span class="label">26 essays</span><b>Bacteria</b></a></li>
+    <li><a href="#latest"><span class="label">6 essays</span><b>Archaea</b></a></li>
+  </ul>
+</nav>
+
+<section class="block" id="featured">
+  <div class="wrap">
+    <div class="head">
+      <h2>This month’s <em>long read</em></h2>
+      <span class="label">Essay · 18 min</span>
+    </div>
+    <article class="featured">
+      <div class="art" data-specimen="slime:77"></div>
+      <div class="body">
+        <span class="tag" style="--tint: var(--coral)">Protista</span>
+        <h3><a href="#">A slime mould solved the maze. Was it thinking?</a></h3>
+        <p>It has no brain, no neurons and no plan, yet <em>Physarum polycephalum</em> finds the shortest path through a labyrinth and redraws the Tokyo rail network for fun. A look at intelligence without a nervous system, and what it asks of ours.</p>
+        <div class="byline">
+          <span class="avatar">M</span>
+          <span><b>Mara Lindqvist</b>October 3, 2026</span>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="block" id="latest" style="padding-top: 0">
+  <div class="wrap">
+    <div class="head">
+      <h2>Recent <em>dispatches</em></h2>
+      <a href="#">View all posts</a>
+    </div>
+    <div class="posts">
+      <article class="post" style="--tint: #6a4c9c">
+        <a href="#">
+          <div class="thumb" data-specimen="centric:12"></div>
+          <span class="tag">Microbiology</span>
+          <h3>Your gut has a night shift</h3>
+          <p>Gut bacteria keep their own circadian rhythm, and they move house twice a day.</p>
+          <div class="label meta">Sep 28 · 9 min</div>
+        </a>
+      </article>
+      <article class="post" style="--tint: #2f6e3f">
+        <a href="#">
+          <div class="thumb" data-specimen="radiolarian:42"></div>
+          <span class="tag">Botany</span>
+          <h3>Why would a tree share sugar with its rivals?</h3>
+          <p>Following carbon through the fungal networks under an old beech forest.</p>
+          <div class="label meta">Sep 21 · 12 min</div>
+        </a>
+      </article>
+      <article class="post" style="--tint: #b0452c">
+        <a href="#">
+          <div class="thumb" data-specimen="pennate:5"></div>
+          <span class="tag">Genetics</span>
+          <h3>The octopus edits its own instructions</h3>
+          <p>Cephalopods rewrite their RNA on the fly, and pay for it with slower evolution.</p>
+          <div class="label meta">Sep 14 · 11 min</div>
+        </a>
+      </article>
+      <article class="post" style="--tint: #1f6b80">
+        <a href="#">
+          <div class="thumb" data-specimen="centric:908"></div>
+          <span class="tag">Marine</span>
+          <h3>One breath in five comes from a glass house</h3>
+          <p>Diatoms build silica shells and quietly make a large share of the oxygen on Earth.</p>
+          <div class="label meta">Sep 7 · 7 min</div>
+        </a>
+      </article>
+      <article class="post" style="--tint: #8a6a1f">
+        <a href="#">
+          <div class="thumb" data-specimen="radiolarian:3071"></div>
+          <span class="tag">Evolution</span>
+          <h3>Everything keeps turning into a crab</h3>
+          <p>Carcinisation has happened at least five times. Nobody is entirely sure why.</p>
+          <div class="label meta">Aug 31 · 10 min</div>
+        </a>
+      </article>
+      <article class="post" style="--tint: #4d6b2a">
+        <a href="#">
+          <div class="thumb" data-specimen="pennate:61"></div>
+          <span class="tag">Ecology</span>
+          <h3>The quiet return of the beaver</h3>
+          <p>How one rodent rebuilds a whole wetland, and why farmers are coming round to it.</p>
+          <div class="label meta">Aug 24 · 8 min</div>
+        </a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="sotw" id="sotw">
+  <div class="wrap">
+    <div class="art"><span class="ring"></span><div data-specimen="acantharia:20"></div></div>
+    <div>
+      <span class="label">Specimen of the week</span>
+      <h2>Acanthometra</h2>
+      <div class="common">a star made of stone, smaller than a grain of sand</div>
+      <p>Acantharians are single-celled plankton that build their skeletons from strontium sulfate, a mineral almost nothing else uses. Exactly twenty spines meet at the centre in a fixed geometry first described by Johannes Müller in 1858.</p>
+      <dl>
+        <dt>Domain</dt><dd>Eukaryota</dd>
+        <dt>Supergroup</dt><dd>Rhizaria</dd>
+        <dt>Phylum</dt><dd>Retaria</dd>
+        <dt>Class</dt><dd>Acantharea</dd>
+        <dt>Size</dt><dd>~ 0.2 mm across</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="letter">
+  <div class="wrap">
+    <div class="letter">
+      <span class="label">The monthly culture</span>
+      <h2>One long letter about <em>living things</em>, every month.</h2>
+      <p>New essays, a specimen to look at under the lamp, and a short list of the best biology we read elsewhere. No spam, ever.</p>
+      <form onsubmit="event.preventDefault(); this.querySelector('button').textContent = 'Thank you ✓';">
+        <input type="email" required placeholder="you@example.com" aria-label="Email address">
+        <button class="btn" type="submit">Subscribe</button>
+      </form>
+      <div class="fine">Join 12,400 readers. Unsubscribe with one click.</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Specimen. Illustrations generated from the drawings of Ernst Haeckel.</span>
+    <ul>
+      <li><a href="#">Archive</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">RSS</a></li>
+      <li><a href="index.html">← All pages</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+/* ---------- Generated specimen drawings (Haeckel-style line plates) ---------- */
+const rng = seed => () => {
+  seed = (seed + 0x6D2B79F5) | 0;
+  let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+  t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+  return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+};
+const f = n => n.toFixed(2);
+const circle = (x, y, r, extra = '') => `<circle cx="${f(x)}" cy="${f(y)}" r="${f(r)}"${extra}/>`;
+const line = (x1, y1, x2, y2, extra = '') => `<line x1="${f(x1)}" y1="${f(y1)}" x2="${f(x2)}" y2="${f(y2)}"${extra}/>`;
+const polar = (r, a) => [r * Math.cos(a), r * Math.sin(a)];
+
+const DRAW = {
+  // lattice shell with radial spines
+  radiolarian(r) {
+    const n = 6 + Math.floor(r() * 7);
+    const R = 62;
+    let s = circle(0, 0, R) + circle(0, 0, R * 1.04, ' stroke-width=".4"');
+    const rings = 2 + Math.floor(r() * 2);
+    const hole = 3 + r() * 2.2;
+    for (let k = 0; k < rings; k++) {
+      const rr = R * (.38 + .56 * (k + .5) / rings);
+      const count = Math.floor(2 * Math.PI * rr / (hole * 2.5));
+      const off = k % 2 ? Math.PI / count : 0;
+      for (let i = 0; i < count; i++) s += circle(...polar(rr, off + i / count * 2 * Math.PI), hole * (.75 + k / rings * .35));
+    }
+    s += circle(0, 0, R * .26);
+    let star = '';
+    for (let i = 0; i < n * 2; i++) {
+      const [x, y] = polar(i % 2 ? R * .26 : R * .12, i / (n * 2) * 2 * Math.PI);
+      star += (i ? 'L' : 'M') + f(x) + ' ' + f(y);
+    }
+    s += `<path d="${star}Z"/>`;
+    const len = 1.32 + r() * .14;
+    for (let i = 0; i < n; i++) {
+      const a = i / n * 2 * Math.PI;
+      const [x1, y1] = polar(R * .26, a), [x2, y2] = polar(R * len, a);
+      s += line(x1, y1, x2, y2, ' stroke-width="1.3"');
+      const [bx, by] = polar(R * (len - .12), a);
+      for (const d of [-1, 1]) {
+        const [ex, ey] = polar(R * (len - .2), a + d * .07);
+        s += line(bx, by, ex, ey);
+      }
+      const a2 = a + Math.PI / n;
+      s += line(...polar(R * 1.04, a2), ...polar(R * (1.12 + r() * .06), a2), ' stroke-width=".6"');
+    }
+    return s;
+  },
+
+  // round diatom: radial striae dotted with areolae
+  centric(r) {
+    const R = 74;
+    let s = circle(0, 0, R) + circle(0, 0, R * .93, ' stroke-width=".5"');
+    const rays = 48 + Math.floor(r() * 30);
+    const core = .18 + r() * .1;
+    for (let i = 0; i < rays; i++) {
+      const a = i / rays * 2 * Math.PI;
+      const start = i % 2 ? core + .12 : core;
+      s += line(...polar(R * start, a), ...polar(R * .9, a), ' stroke-width=".35"');
+      for (let d = start + .08; d < .88; d += .09) s += circle(...polar(R * d, a + Math.PI / rays), .9 + d * .6);
+    }
+    s += circle(0, 0, R * core);
+    const petals = 5 + Math.floor(r() * 4);
+    for (let i = 0; i < petals; i++) s += circle(...polar(R * core * .55, i / petals * 2 * Math.PI), R * core * .38, ' stroke-width=".5"');
+    return s;
+  },
+
+  // elongated diatom with a central raphe and transverse striae
+  pennate(r) {
+    const rx = 88, ry = 20 + r() * 8;
+    let s = `<g transform="rotate(-28)"><ellipse rx="${rx}" ry="${f(ry)}"/><ellipse rx="${rx - 4}" ry="${f(ry - 3)}" stroke-width=".4"/>`;
+    s += line(-rx + 8, 0, -6, 0, ' stroke-width="1"') + line(6, 0, rx - 8, 0, ' stroke-width="1"');
+    s += `<ellipse rx="6" ry="${f(ry * .45)}"/>`;
+    const step = 3.6 + r() * 1.2;
+    for (let x = -rx + 8; x <= rx - 8; x += step) {
+      if (Math.abs(x) < 9) continue;
+      const h = (ry - 4) * Math.sqrt(1 - (x / rx) ** 2);
+      s += line(x, 2.5, x, h, ' stroke-width=".45"') + line(x, -2.5, x, -h, ' stroke-width=".45"');
+    }
+    return s + '</g>';
+  },
+
+  // acantharian: twenty spines in Müller's arrangement, seen from one pole
+  acantharia(r) {
+    let s = circle(0, 0, 16) + circle(0, 0, 9, ' stroke-width=".5"');
+    // five circles of four spines; projected lengths shrink toward the viewer
+    const rings = [[0, 1], [1, .82], [2, .55], [3, .82], [4, 1]];
+    for (const [k, scale] of rings) {
+      for (let i = 0; i < 4; i++) {
+        const a = i / 4 * 2 * Math.PI + k * Math.PI / 10 + (k % 2 ? Math.PI / 4 : 0);
+        const L = 92 * scale;
+        const [x, y] = polar(L, a), [x0, y0] = polar(16, a);
+        const [lx, ly] = polar(L * .78, a - .045), [rx2, ry2] = polar(L * .78, a + .045);
+        s += `<path d="M${f(x0)} ${f(y0)}L${f(lx)} ${f(ly)}L${f(x)} ${f(y)}L${f(rx2)} ${f(ry2)}Z" stroke-width=".8"/>`;
+        s += line(...polar(L * .4, a), ...polar(L * .46, a + .14), ' stroke-width=".5"');
+        s += line(...polar(L * .4, a), ...polar(L * .46, a - .14), ' stroke-width=".5"');
+      }
+    }
+    // cytoplasm halo
+    for (let i = 0; i < 70; i++) {
+      const a = r() * 2 * Math.PI, d = 18 + r() * 22;
+      s += circle(...polar(d, a), .6 + r() * 1.2, ' stroke-width=".4"');
+    }
+    return s;
+  },
+
+  // branching plasmodium network for the slime-mould essay
+  slime(r) {
+    let s = '';
+    const grow = (x, y, a, w, depth) => {
+      if (depth > 6 || w < .4) return;
+      const L = 18 + r() * 16;
+      const cx = x + Math.cos(a + (r() - .5)) * L * .6, cy = y + Math.sin(a + (r() - .5)) * L * .6;
+      const nx = x + Math.cos(a) * L, ny = y + Math.sin(a) * L;
+      if (Math.hypot(nx, ny) > 92) return;
+      s += `<path d="M${f(x)} ${f(y)}Q${f(cx)} ${f(cy)} ${f(nx)} ${f(ny)}" stroke-width="${f(w)}"/>`;
+      if (r() < .35) s += circle(nx, ny, w * 1.2 + .8, ' stroke-width=".5"');
+      const kids = 1 + (r() < .6 ? 1 : 0) + (r() < .15 ? 1 : 0);
+      for (let k = 0; k < kids; k++) grow(nx, ny, a + (r() - .5) * 1.3, w * (.62 + r() * .16), depth + 1);
+    };
+    for (let i = 0; i < 9; i++) grow(0, 0, i / 9 * 2 * Math.PI + r() * .3, 3.2, 0);
+    s += circle(0, 0, 9) + circle(0, 0, 5, ' stroke-width=".5"');
+    // food sources
+    for (let i = 0; i < 5; i++) s += circle(...polar(70 + r() * 16, r() * 2 * Math.PI), 4, ' stroke-dasharray="1.5 1.5"');
+    return s;
+  },
+};
+
+document.querySelectorAll('[data-specimen]').forEach(el => {
+  const [kind, seed] = el.dataset.specimen.split(':');
+  el.innerHTML = `<svg viewBox="-100 -100 200 200" fill="none" stroke="currentColor" stroke-width=".8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${DRAW[kind](rng(+seed))}</svg>`;
+});
+</script>
+</body>
+</html>
